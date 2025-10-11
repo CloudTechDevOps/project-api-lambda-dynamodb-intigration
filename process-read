@@ -1,0 +1,156 @@
+1️⃣ Document Setup
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Form</title>
+
+
+<!DOCTYPE html> → Declares that this is an HTML5 document.
+
+<html lang="en"> → Sets the language to English.
+
+<meta charset="UTF-8"> → Ensures special characters display correctly.
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0"> → Makes the page responsive on mobile devices.
+
+<title> → The text shown in the browser tab.
+
+2️⃣ Styles (CSS)
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #f4f4f4;
+  ...
+  background-image: url('https://media.istockphoto.com/id/1367728715/...jpg');
+  background-repeat: no-repeat;
+  background-size: 100%;
+}
+
+
+Sets font, background color, and a background image stretched across the page.
+
+display: flex; flex-direction: column; align-items: center; → Centers content vertically and horizontally.
+
+Form Styling
+form {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 25px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-style: groove;
+  border-color: rgb(9, 205, 9);
+  width: 45%;
+}
+
+
+White box on top of the background image.
+
+Rounded corners, shadow, and groove border for aesthetics.
+
+Width = 45% of the page, centered due to the body flex styling.
+
+Headings (H1, H2)
+h1 { ... }
+h2 { ... }
+
+
+<h1> → Page title at top, colored, with yellow background.
+
+<h2> → Form subtitle, styled differently for visual hierarchy.
+
+Labels and Inputs
+label { display: block; margin: 10px 0 5px; color: #555; font-size: larger; font-family: cursive; }
+input, textarea { width: 100%; padding: 10px; border-radius: 15px; border-color: aqua; }
+input[type="submit"] { background-color: #a7386c; color: #fff; cursor: pointer; }
+input[type="submit"]:hover { background-color: #45a049; }
+
+
+Labels are stacked vertically with some spacing.
+
+Inputs and textarea fields take full width of the form, with padding and rounded corners.
+
+Submit button has custom color and hover effect.
+
+Hover Animation
+form:hover { transform: scale(1); border-style: groove; border-color: gold; }
+
+
+Subtle visual effect on form hover.
+
+Later enhanced with JS for smooth scaling.
+
+Footer Styling
+footer { margin-top: 20px; font-size: 18px; text-align: center; color: rgb(16, 238, 116); }
+
+
+Displays “Multicloud with devops by VEERA” at the bottom, centered.
+
+3️⃣ Body Content
+<h1>Welcome to Multicloud with Devops by VEERA NareshIT</h1>
+<form action="/dev" method="post">
+  <h2>MultiCloud devops Registration</h2>
+  <label for="fname">First Name:</label>
+  <input type="text" id="fname" name="fname" required>
+  ...
+  <div style="text-align: center;"><input type="submit" value="Submit"></div> 
+</form>
+<footer>Multicloud with devops by VEERA</footer>
+
+
+<h1> → Page header.
+
+<form> → HTML form where users enter details.
+
+action="/dev" → URL to submit the form to (your backend endpoint).
+
+method="post" → Form data will be sent via POST request.
+
+Fields:
+
+fname → First name
+
+lname → Last name
+
+email → Primary key for your DynamoDB
+
+message → Textarea for user messages
+
+Submit button to send the data.
+
+Footer displays additional info.
+
+4️⃣ JavaScript for Animation
+const form = document.querySelector('form');
+form.addEventListener('mouseover', () => { form.style.transform = 'scale(1.05)'; });
+form.addEventListener('mouseout', () => { form.style.transform = 'scale(1)'; });
+
+
+Makes the form slightly grow when mouse hovers over it.
+
+Gives a subtle visual effect to make the UI interactive.
+
+5️⃣ How this HTML works with your Lambda
+
+User opens the page → Browser sees index.html.
+
+User fills in fields and clicks Submit.
+
+Form sends a POST request to /dev with the form data:
+
+fname=John&lname=Doe&email=john@example.com&message=Hello
+
+
+Your Lambda function (behind API Gateway or Function URL) reads this data and inserts it into DynamoDB.
+
+On success, Lambda returns success.html → User sees confirmation.
+
+✅ Key Points
+
+The form action URL must point to your Lambda endpoint (via API Gateway or Function URL).
+
+Email field is required because it’s the DynamoDB primary key.
+
+JS and CSS are purely frontend enhancements for UX.
+
+Everything else (DB insert, response) is handled by your Lambda backend.
