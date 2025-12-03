@@ -154,3 +154,37 @@ Email field is required because it’s the DynamoDB primary key.
 JS and CSS are purely frontend enhancements for UX.
 
 Everything else (DB insert, response) is handled by your Lambda backend.
+
+
+
+
+
+Backend logic to dynmodb update the records 
+
+What your current code does
+
+Your function:
+
+def insert_record(formbody):
+    formbody = formbody.replace("=", "' : '")
+    formbody = formbody.replace("&", "', '")
+    formbody = "INSERT INTO veera value {'" + formbody + "'}"
+
+✔️ Step-by-step:
+
+If the input string is something like:
+
+name=John&age=30&city=NY
+
+
+Then:
+
+= becomes ' : ' →
+name' : 'John&age' : '30&city' : 'NY
+
+& becomes ', ' →
+name' : 'John', 'age' : '30', 'city' : 'NY
+
+Final string becomes:
+
+INSERT INTO veera value {'name' : 'John', 'age' : '30', 'city' : 'NY'}
